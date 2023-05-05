@@ -11,11 +11,11 @@ double func1D(double x){
     return (-1) * sin(x) - 1;
 }
 
-double func1(double x){
+double func2(double x){
     return (6435 * pow(x, 8) - 12012 * pow(x, 6) + 6930 * pow(x, 4) - 1260 * pow(x, 2) + 35) / 128;
 }
 
-double func1D(double x){
+double func2D(double x){
     return (51480 * pow(x, 7) - 72072 * pow(x, 5) + 27720 * pow(x, 3) - 2520 * x) / 128;
 }
 
@@ -30,11 +30,11 @@ double func3D(double x){
 void nrMethod(double x, double accuracy)
 {
     double tolerance = pow(0.1, accuracy), error, x_next;
-    int iterCounter;
+    int iterCounter = 0;
 
     do {
         iterCounter++;
-        x_next = x - (func3(x) / func3D(x));
+        x_next = x - (func1(x) / func1D(x)); // Change the function here
         error = fabs((x_next - x) / x_next);
         x = x_next;
     } while(error > tolerance);

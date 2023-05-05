@@ -28,7 +28,7 @@ int main() {
     error,
     xm;
     
-    int iterCounter;
+    int iterCounter = 0;
 
     do {
         iterCounter++;
