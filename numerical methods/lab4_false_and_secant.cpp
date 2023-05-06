@@ -37,7 +37,7 @@ int main(){
 
     } while(error > tolerance);
 
-    cout << setprecision(accuracy) << "Find root with \"False Position method\" at x = " << x_next << " in " << false_counter << " iterrations" << endl << endl;
+    cout << setprecision(accuracy) << "Found root with \"False Position method\" at x = " << x_next << " in " << false_counter << " iterrations" << endl << endl;
 
     double x0, x1, secant_counter = 0;
 
@@ -54,7 +54,7 @@ int main(){
         x1 = x_next;
     } while(error > tolerance);
     
-    cout << setprecision(accuracy) << "Find root with \"Secant method\" at x = " << x_next << " in " << secant_counter << " iterrations" << endl << endl;
+    cout << setprecision(accuracy) << "Found root with \"Secant method\" at x = " << x_next << " in " << secant_counter << " iterrations" << endl << endl;
 
     return 0;
 }
