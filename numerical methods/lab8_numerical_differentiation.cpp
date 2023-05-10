@@ -27,8 +27,7 @@ double calculateN(double YValues[], double XValues[], int size){
 int main(){
     double h[10] = {0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5};
     double h_d_for[10], h_d_central[10], h_d2_for[10], h_d2_central[10], h_d_for_error[10],  h_d_central_error[10], h_d2_for_error[10], h_d2_central_error[10];
-
-    for(int i = 0; i<size(h); i++){
+    for(int i = 0; i<(end(h) - begin(h)); i++){
         h_d_for[i] = (function(X + h[i]) - function(X)) / h[i];
         h_d_central[i] = (function(X + h[i]) - function(X - h[i])) / (2*h[i]);
 
@@ -44,5 +43,4 @@ int main(){
     }
 
     cout << endl << calculateN(h_d_for_error, h, 10) << " | " << calculateN(h_d_central_error, h, 10) << " | " << calculateN(h_d2_for_error, h, 10) << " | " << calculateN(h_d2_central_error, h, 10);
-    
 }

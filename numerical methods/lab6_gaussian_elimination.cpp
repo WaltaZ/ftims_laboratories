@@ -4,6 +4,27 @@
 
 using namespace std;
 
+vector<double> solve_tridiagonal(vector<double> a, vector<double> b, vector<double> c, vector<double> r){
+
+    for(int i = 1; i<b.size(); i++){
+        b[i] = b[i] - ((a[i] / b[i-1]) * c[i-1]);
+        r[i] = r[i] - ((a[i] / b[i-1]) * r[i-1]);
+    }
+
+    vector<double> x;
+    x.push_back(r[r.size() - 1] / b[b.size() - 1]);
+
+    for(int i = b.size() - 2; i >= 0; i--){
+        double currentX = x[x.size() - 1];
+        x.push_back((r[i] - (c[i] * currentX))/b[i]);
+    }
+
+    reverse(x.begin(), x.end());
+
+    return x;
+
+}
+
 int main(){
 
     vector<double> a_static = {0, -1, -1, -1, -1};
@@ -14,20 +35,7 @@ int main(){
 
     vector<double> r = {0, 1, 2, 3, 4};
 
-    vector<double> x;
-
-    for(int i = 1; i<b.size(); i++){
-        b[i] = b[i] - ((a[i] / b[i-1]) * c[i-1]);
-        r[i] = r[i] - ((a[i] / b[i-1]) * r[i-1]);
-    }
-
-    x.push_back(r[r.size() - 1] / b[b.size() - 1]);
-    for(int i = b.size() - 2; i >= 0; i--){
-        double currentX = x[x.size() - 1];
-        x.push_back((r[i] - (c[i] * currentX))/b[i]);
-    }
-
-    reverse(x.begin(), x.end());
+    vector<double> x = solve_tridiagonal(a, b, c, r);
 
     for(int i = 0; i < x.size(); i++){
         cout << "x" << i + 1 << " = " << x[i] << endl;
