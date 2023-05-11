@@ -9,18 +9,26 @@ double function(double x){
     return sin(x);
 }
 
+double function_d(double x){
+    return cos(x);
+}
+
+double function_d3(double x){
+    return (-1) * cos(x);
+}
+
 double trapezoid(double iterations, vector<double> range){
     double step = (range[1] - range[0])/iterations;
     double sum = 0, x = range[0];
 
-    sum += function(x)/2;
-
-    while(x < (range[1] - step)){
+    for(int i = 0; i<=iterations; i++){
+        if(i == 0 || i == iterations){
+            sum += (function(x) / 2.0);
+        } else {
+            sum += function(x);
+        }
         x += step;
-        sum += function(x);
     }
-
-    sum += function(x + step) / 2;
 
     sum = sum * step;
     return sum;
@@ -67,6 +75,14 @@ double boole(double iterations, vector<double> range){
     sum = sum * (2.0 * step / 45.0);
     return sum;
 
+}
+
+double euler_maclaurin(double iterations, vector<double> range){
+    double step = (range[1] - range[0])/(iterations);
+    double sum = 0, x = range[0];
+
+    sum = trapezoid(iterations, range) + ((pow(step, 2) / 12.0) * (function_d(range[0]) - function_d(range[1]))) - ((pow(step, 4) / 720.0) * (function_d3(range[0]) - function_d3(range[1])));
+    return sum;
     }
 
 int main(){
@@ -74,10 +90,10 @@ int main(){
     vector<double> iterations = {4, 8, 16, 32, 64, 128, 256, 512, 1024};
     vector<double> range = {0, M_PI};
 
-    cout << "Trapezoids:" << endl;
+    cout << "N | Trapezoids | Simpson | Boole | Euler-Maclaurin" << endl;
 
     for(int i=0; i<iterations.size(); i++){
-        cout << setprecision(13) << boole(iterations[i], range) << " | ";
+        cout << setprecision(13) << iterations[i] << " | " << trapezoid(iterations[i], range) << " | " << simpson(iterations[i], range) << " | " << boole(iterations[i], range) << " | " << euler_maclaurin(iterations[i], range) << endl;
     }
 
     return 0;
