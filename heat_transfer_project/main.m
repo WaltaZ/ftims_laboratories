@@ -3,31 +3,30 @@ addpath 'D:\Polibuda XD\ftims_laboratories\heat_transfer_project\analytical_solu
 
 global a lambda q_0 beta R;
 
-a = 1e-03; % Thermal diffusivity
+a = 1e-05; % Thermal diffusivity
 lambda = 8; % Thermal conductivity
-q_0 = 1e02; % Heat efficiency in the point of r = 0
-beta = 0.5; % Empirical coefficient of heat efficiency diminishing
-R = 10; % Radius of the sphere
+q_0 = 1e05; % Heat efficiency in the point of r = 0
+R = 0.5; % Radius of the sphere
 
 t_end = 5400;
 delta = 100;
 
-r = linspace(0.01, R, delta);
+r = linspace(0, R, delta);
 t = linspace(0, t_end, delta);
+timeindex = 90;
 
 num_sol = num_heatsol(r, t);
-an_sol = an_heatsol(r, t(4), 100);
-plot(an_sol, r);
-hold on;
-plot(num_sol(4, :));
-
-%surf(r, t, sol);
+an_sol = an_heatsol(r, t, 10);
 
 %{
-figure(1)
-for i = 1:delta
-    plot(r, sol(i, :));
-    pause(0.1);
-    drawnow;
-end
+pcolor(r, t, num_sol);
+colormap('jet')
+cb = colorbar;
+shading flat;
 %}
+
+plot(r, an_sol(length(t), :));
+xlim([0 0.5]);
+ylim([0 250]);
+xlabel('Promień R [m]');
+ylabel('Temperatura T');
