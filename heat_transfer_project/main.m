@@ -1,5 +1,5 @@
-addpath 'D:\Polibuda XD\ftims_laboratories\heat_transfer_project\numerical_solution'
-addpath 'D:\Polibuda XD\ftims_laboratories\heat_transfer_project\analytical_solution'
+addpath 'C:\Users\WaltaZ\Desktop\GitHub\ftims_laboratories\heat_transfer_project\analytical_solution'
+addpath 'C:\Users\WaltaZ\Desktop\GitHub\ftims_laboratories\heat_transfer_project\numerical_solution'
 
 global a lambda q_0 beta R;
 
@@ -11,22 +11,24 @@ R = 0.5; % Radius of the sphere
 t_end = 5400;
 delta = 100;
 
-r = linspace(0, R, delta);
+r = linspace(0.001, R, delta);
 t = linspace(0, t_end, delta);
 timeindex = 90;
 
 num_sol = num_heatsol(r, t);
-an_sol = an_heatsol(r, t, 10);
+an_sol = an_heatsol(r, t, 100);
 
-%{
-pcolor(r, t, num_sol);
+
+pcolor(r, t, num_sol - an_sol);
 colormap('jet')
 cb = colorbar;
 shading flat;
-%}
 
+
+%{
 plot(r, an_sol(length(t), :));
 xlim([0 0.5]);
 ylim([0 250]);
+%}
 xlabel('Promień R [m]');
 ylabel('Temperatura T');
